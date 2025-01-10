@@ -1,0 +1,70 @@
+model: 
+# avalaible models: stacked, bidirectional, gru, lstm, random_forest.
+  model_to_train: [stacked, bidirectional, gru, lstm, random_forest]
+  model_to_test: [stacked, bidirectional, gru, lstm, random_forest]
+
+data:
+  source_dataset_dir: dataset_dsa/
+  data_dir: datasets_dir/
+  train_file_name: training
+  val_file_name: validation
+  test_file_name: test
+  statistic_X_train_file_name: statistic_X_train
+  statistic_y_train_file_name: statistic_y_train
+  statistic_X_test_file_name: statistic_X_test
+  statistic_y_test_file_name: statistic_y_test
+  train_ratio: 0.80
+  val_ratio: 0.10
+  
+training:
+  device: cuda
+  batch_size: 32 
+  lr: 0.001
+  warmup_ratio: 0.1
+  optimizer: adam
+  evaluation_metric: accuracy
+  best_metric_lower_is_better: false
+  epochs: 100
+  early_stopping_epochs: 25
+  checkpoint_dir: checkpoints/
+  metrics_to_plot: [loss, accuracy] # avalaible metrics: loss, accuracy, precision, recall, f1.
+
+stackedrnn_model:
+ input_layer: 45
+ hidden_layer: 160
+ output_size: 19
+ num_layer: 4
+
+
+bidirectionalrnn_model:
+ input_layer: 45
+ hidden_layer: 160
+ output_size: 19
+ num_layer: 4
+ 
+
+gru_model:
+ input_layer: 45
+ hidden_layer: 192
+ output_size: 19
+ num_layer: 3
+ 
+ 
+lstm_model:
+ input_layer: 45
+ hidden_layer: 192
+ output_size: 19
+ num_layer: 3
+ 
+
+random_forest:
+ n_estimators: 100
+ criterion: gini
+ max_depth: null
+ min_samples_split: 2
+ min_samples_leaf: 2
+ max_features: "sqrt"
+ bootstrap: true
+ oob_score: false
+ n_jobs: null
+ random_state: 42
